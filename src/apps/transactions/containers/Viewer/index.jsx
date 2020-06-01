@@ -1,17 +1,20 @@
 import React from "react";
 
-import Day from "../Day";
+import DailyRecord from "../DailyRecord";
 import ItemEditor from "../ItemEditor";
+import Calendar from "../../components/Calendar";
+import { getCurrentWeekDays } from "utils";
 
 const Viewer = () => {
+  const currentWeekDays = getCurrentWeekDays();
+
   return (
     <div>
+      {currentWeekDays.map(day => (
+        <DailyRecord key={day.getDay()} day={day} />
+      ))}
+      <Calendar />
       <ItemEditor />
-      <Day />
-      <Day />
-      <Day />
-      <Day />
-      <Day />
     </div>
   );
 };

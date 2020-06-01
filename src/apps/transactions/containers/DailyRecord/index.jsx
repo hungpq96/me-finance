@@ -3,17 +3,26 @@ import { Intent } from "@blueprintjs/core";
 
 import { Wrapper, ToggleButton, Collapsable, SumButton, Footer, AddItemButton } from "./styles";
 import Item from "../../components/Item";
+import { getDayName, getMonthlyDate, isToday } from "utils";
 
-const Day = () => {
-  const [isOpen, setOpen] = useState(true);
+const DailyRecord = ({ day }) => {
+  const [isOpen, setOpen] = useState(isToday(day));
 
   const handleToggle = () => {
     setOpen(!isOpen);
   };
 
+  const getTitle = () => {
+    const title = `${getDayName(day)} - ${getMonthlyDate(day)}`;
+
+    return isToday(day) ? `${title} (today)` : title;
+  };
+
   return (
     <Wrapper>
-      <ToggleButton large icon="properties" onClick={handleToggle}>Today</ToggleButton>
+      <ToggleButton large icon="properties" onClick={handleToggle}>
+        {getTitle()}
+      </ToggleButton>
 
       <Collapsable isOpen={isOpen} keepChildrenMounted>
         <Item />
@@ -34,4 +43,4 @@ const Day = () => {
   )
 };
 
-export default Day;
+export default DailyRecord;
