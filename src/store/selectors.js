@@ -10,3 +10,10 @@ export const getWeekDays = createSelector(
     weekDays: (state.weekDays || []).map(day => toDate(day)),
   }),
 );
+
+export const getItemEditorOpenStatus = createSelector(
+  getTransaction,
+  state => ({
+    isItemEditorOpen: state.isItemEditorOpen,
+  }),
+)

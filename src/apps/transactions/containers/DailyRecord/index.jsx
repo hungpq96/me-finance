@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
+import { toggleItemEditor } from "apps/transactions/actions";
+import { getDayName, getMonthlyDate, isToday } from "utils";
 import { Wrapper, ToggleButton, Collapsable, SumButton, Footer, AddItemButton } from "./styles";
 import Item from "../../components/Item";
-import { getDayName, getMonthlyDate, isToday } from "utils";
 
-const DailyRecord = ({ day }) => {
+const DailyRecord = ({ day, toggleItemEditor }) => {
   useEffect(() => {
     setOpen(isToday(day));
   }, [day]);
@@ -22,6 +24,10 @@ const DailyRecord = ({ day }) => {
     return isToday(day) ? `${title} (today)` : title;
   };
 
+  const handleItemAdd = () => {
+    toggleItemEditor();
+  };
+
   return (
     <Wrapper>
       <ToggleButton large icon="properties" onClick={handleToggle}>
@@ -36,7 +42,7 @@ const DailyRecord = ({ day }) => {
         <Item />
 
         <Footer>
-          <AddItemButton large icon="plus" intent={Intent.SUCCESS} />
+          <AddItemButton large icon="plus" intent={Intent.SUCCESS} onClick={handleItemAdd} />
 
           <SumButton large icon="equals" minimal intent={Intent.WARNING}>
             123456,000
@@ -47,4 +53,7 @@ const DailyRecord = ({ day }) => {
   )
 };
 
-export default DailyRecord;
+export default connect(
+  null,
+  { toggleItemEditor },
+)(DailyRecord);

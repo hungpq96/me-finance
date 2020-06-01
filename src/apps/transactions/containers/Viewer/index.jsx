@@ -1,20 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { getWeekDays } from "store/selectors";
 import DailyRecord from "../DailyRecord";
 import ItemEditor from "../ItemEditor";
 import Calendar from "../../components/Calendar";
-import { getWeekDays } from "store/selectors";
+import { ViewWrapper } from "./styles";
 
 const Viewer = ({ weekDays }) => {
   return (
-    <div>
+    <ViewWrapper>
       {(weekDays).map(day => (
         <DailyRecord key={day.getDay()} day={day} />
       ))}
       <Calendar />
       <ItemEditor />
-    </div>
+    </ViewWrapper>
   );
 };
 

@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { Intent } from '@blueprintjs/core';
 
+import { toggleItemEditor } from "apps/transactions/actions";
+import { getItemEditorOpenStatus } from "store/selectors";
 import { Wrapper, Content, Input, ConfirmButton, CancelButton, Footer } from './styles';
 
-const ItemEditor = () => {
-  const [isOpen, setOpen] = useState(true);
-
-  const toggleOpen = () => setOpen(!isOpen);
-
+const ItemEditor = ({ isItemEditorOpen, toggleItemEditor }) => {
   const handleConfirm = () => {
-    toggleOpen();
+    toggleItemEditor();
+  };
+
+  const handleClose = () => {
+    toggleItemEditor();
   };
 
   return (
@@ -21,8 +24,8 @@ const ItemEditor = () => {
       className="bp3-dark"
       icon="add"
       title="Add Item"
-      isOpen={isOpen}
-      onClose={toggleOpen}
+      isOpen={isItemEditorOpen}
+      onClose={handleClose}
     >
       <Content>
         <Input large leftIcon="shopping-cart" />
@@ -38,7 +41,7 @@ const ItemEditor = () => {
           OK
         </ConfirmButton>
 
-        <CancelButton onClick={toggleOpen}>
+        <CancelButton onClick={handleClose}>
           Cancel
         </CancelButton>
       </Footer>
@@ -46,4 +49,7 @@ const ItemEditor = () => {
   );
 };
 
-export default ItemEditor;
+export default connect(
+  getItemEditorOpenStatus,
+  { toggleItemEditor },
+)(ItemEditor);
