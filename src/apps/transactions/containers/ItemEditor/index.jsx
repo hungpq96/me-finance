@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
@@ -16,12 +16,18 @@ import {
   ErrorMsg,
 } from "./styles";
 
+const initInputs = {
+  name: "",
+  price: "0",
+  note: "",
+};
+
 const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
-  const [inputs, setInputs] = useState({
-    name: "",
-    price: "0",
-    note: "",
-  });
+  useEffect(() => {
+    setInputs(initInputs);
+  }, [isItemEditorOpen]);
+
+  const [inputs, setInputs] = useState(initInputs);
   const [errors, setErrors] = useState({});
 
   const handleConfirm = () => {
