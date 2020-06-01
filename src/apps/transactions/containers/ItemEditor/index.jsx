@@ -5,6 +5,7 @@ import { Intent } from "@blueprintjs/core";
 import { toggleItemEditor, addTransaction } from "apps/transactions/actions";
 import { getItemEditorOpenStatus } from "store/selectors";
 import { getMinimalDate, getUnix } from "utils";
+import schema from "./schema";
 import {
   Wrapper,
   Content,
@@ -12,22 +13,35 @@ import {
   ConfirmButton,
   CancelButton,
   Footer,
+  ErrorMsg,
 } from "./styles";
 
 const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
   const [inputs, setInputs] = useState({
     name: "",
-    price: 0,
+    price: "0",
     note: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleConfirm = () => {
-    addTransaction({
-      ...inputs,
-      id: getUnix(),
-      timestamp: getMinimalDate(new Date()),
-    });
-    toggleItemEditor();
+    schema
+      .validate(inputs, { abortEarly: false })
+      .then(() => {
+        addTransaction({
+          ...inputs,
+          id: getUnix(),
+          timestamp: getMinimalDate(new Date()),
+        });
+        toggleItemEditor();
+      })
+      .catch(({ inner }) => {
+        const errors = {};
+        inner.forEach((error) => {
+          errors[error.path] = error.message;
+        });
+        setErrors(errors);
+      });
   };
 
   const handleClose = () => {
@@ -36,7 +50,10 @@ const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInputs({ ...inputs, [name]: value });
+    setInputs({
+      ...inputs,
+      [name]: name === "price" && !value ? 0 : value,
+    });
   };
 
   return (
@@ -54,20 +71,29 @@ const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
       <Content>
         <Input
           large
+          fill
           leftIcon="shopping-cart"
           name="name"
+          intent={errors.name ? Intent.DANGER : Intent.NONE}
           value={inputs.name}
           onChange={handleInputChange}
         />
+        {errors.name && <ErrorMsg>{errors.name}</ErrorMsg>}
+
         <Input
           large
+          fill
           leftIcon="dollar"
           name="price"
+          intent={errors.price ? Intent.DANGER : Intent.NONE}
           values={inputs.price}
           onChange={handleInputChange}
         />
+        {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
+
         <Input
           large
+          fill
           leftIcon="annotation"
           name="note"
           valuse={inputs.note}

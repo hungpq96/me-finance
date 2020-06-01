@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Dialog, InputGroup, Button } from "@blueprintjs/core";
+import { Dialog, InputGroup, Button, Text } from "@blueprintjs/core";
 
 export const Wrapper = styled(Dialog)``;
 
@@ -24,4 +24,8 @@ export const Footer = styled.div`
   display: flex;
   margin: 0 20px;
   height: 50px;
+`;
+
+export const ErrorMsg = styled(Text)`
+  color: red;
 `;
