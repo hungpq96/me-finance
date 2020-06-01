@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Intent } from "@blueprintjs/core";
 
 import { Wrapper, ToggleButton, Collapsable, SumButton, Footer, AddItemButton } from "./styles";
@@ -6,7 +6,11 @@ import Item from "../../components/Item";
 import { getDayName, getMonthlyDate, isToday } from "utils";
 
 const DailyRecord = ({ day }) => {
-  const [isOpen, setOpen] = useState(isToday(day));
+  useEffect(() => {
+    setOpen(isToday(day));
+  }, [day]);
+
+  const [isOpen, setOpen] = useState(false);
 
   const handleToggle = () => {
     setOpen(!isOpen);

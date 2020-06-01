@@ -1,16 +1,22 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
 import { CalendarWrapper } from "./styles";
-import { getWeekDays, getWeekRange, getCurrentWeekDays } from "utils";
+import { getWeekDays, getWeekRange, getCurrentWeekDays, toStringDate } from "utils";
+import { setWeekDays } from "apps/transactions/actions";
 
-const Calendar = () => {
+const Calendar = ({ setWeekDays }) => {
   const [hoverRange, setHoverRange] = useState();
   const [selectedDays, setSelectedDays] = useState(getCurrentWeekDays());
 
   const handleDayChange = date => {
-    setSelectedDays(getWeekDays(getWeekRange(date).from))
+    const weekDays = getWeekDays(getWeekRange(date).from);
+    setSelectedDays(weekDays);
+    setWeekDays({
+      weekDays: weekDays.map(toStringDate),
+    });
   };
 
   const handleDayEnter = date => {
@@ -55,4 +61,7 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;
+export default connect(
+  null,
+  { setWeekDays },
+)(Calendar);

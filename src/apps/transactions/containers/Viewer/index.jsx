@@ -1,16 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import DailyRecord from "../DailyRecord";
 import ItemEditor from "../ItemEditor";
 import Calendar from "../../components/Calendar";
-import { getCurrentWeekDays } from "utils";
+import { getWeekDays } from "store/selectors";
 
-const Viewer = () => {
-  const currentWeekDays = getCurrentWeekDays();
-
+const Viewer = ({ weekDays }) => {
   return (
     <div>
-      {currentWeekDays.map(day => (
+      {(weekDays).map(day => (
         <DailyRecord key={day.getDay()} day={day} />
       ))}
       <Calendar />
@@ -19,4 +18,6 @@ const Viewer = () => {
   );
 };
 
-export default Viewer;
+export default connect(
+  getWeekDays,
+)(Viewer);

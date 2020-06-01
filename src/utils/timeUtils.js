@@ -33,3 +33,7 @@ export const getDayName = date => moment(date).format("dddd");
 export const isToday = date => moment(date).isSame(new Date(), "day");
 
 export const getMonthlyDate = date => moment(date).format('DD/MM');
+
+export const toStringDate = date => moment(date).toString();
+
+export const toDate = date => new Date(date);

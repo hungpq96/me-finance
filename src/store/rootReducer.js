@@ -1,7 +1,9 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
+import transactionReducer from "apps/transactions/reducers";
+
 const rootReducer = combineReducers({
-  // manually add reducer here!
+  transaction: transactionReducer,
 });
 
 export default rootReducer;

@@ -1,1 +1,2 @@
-export default {};
+export const APP_NAMESPACE = "TRANSACTIONS";
+export const SET_WEEKDAYS = `${APP_NAMESPACE}/SET_WEEKDAYS`;
