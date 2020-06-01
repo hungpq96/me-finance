@@ -4,10 +4,17 @@ import { Intent } from "@blueprintjs/core";
 
 import { toggleItemEditor } from "apps/transactions/actions";
 import { getDayName, getMonthlyDate, isToday } from "utils";
-import { Wrapper, ToggleButton, Collapsable, SumButton, Footer, AddItemButton } from "./styles";
+import {
+  Wrapper,
+  ToggleButton,
+  Collapsable,
+  SumButton,
+  Footer,
+  AddItemButton,
+} from "./styles";
 import Item from "../../components/Item";
 
-const DailyRecord = ({ day, toggleItemEditor }) => {
+const DailyRecord = ({ day, toggleItemEditor, transactions }) => {
   useEffect(() => {
     setOpen(isToday(day));
   }, [day]);
@@ -18,15 +25,18 @@ const DailyRecord = ({ day, toggleItemEditor }) => {
     setOpen(!isOpen);
   };
 
+  const handleItemAdd = () => {
+    toggleItemEditor();
+  };
+
   const getTitle = () => {
     const title = `${getDayName(day)} - ${getMonthlyDate(day)}`;
 
     return isToday(day) ? `${title} (today)` : title;
   };
 
-  const handleItemAdd = () => {
-    toggleItemEditor();
-  };
+  const getSum = () =>
+    transactions.reduce((acc, next) => acc + Number(next.price), 0);
 
   return (
     <Wrapper>
@@ -35,25 +45,25 @@ const DailyRecord = ({ day, toggleItemEditor }) => {
       </ToggleButton>
 
       <Collapsable isOpen={isOpen} keepChildrenMounted>
-        <Item />
-        <Item />
-        <Item />
-        <Item />
-        <Item />
+        {transactions.map((trans) => (
+          <Item transaction={trans} />
+        ))}
 
         <Footer>
-          <AddItemButton large icon="plus" intent={Intent.SUCCESS} onClick={handleItemAdd} />
+          <AddItemButton
+            large
+            icon="plus"
+            intent={Intent.SUCCESS}
+            onClick={handleItemAdd}
+          />
 
           <SumButton large icon="equals" minimal intent={Intent.WARNING}>
-            123456,000
+            {getSum()}
           </SumButton>
         </Footer>
       </Collapsable>
     </Wrapper>
-  )
+  );
 };
 
-export default connect(
-  null,
-  { toggleItemEditor },
-)(DailyRecord);
+export default connect(null, { toggleItemEditor })(DailyRecord);

@@ -27,6 +27,11 @@ export const isToday = (date) => moment(date).isSame(new Date(), "day");
 export const isWithinDay = (date, comparingDate) =>
   moment(date).isSame(comparingDate, "day");
 
+export const isCurrentWeek = (date) => moment(date).isSame(new Date(), "week");
+
+export const isWithinWeek = (date, comparingDate) =>
+  moment(date).isSame(comparingDate, "week");
+
 export const getMonthlyDate = (date) => moment(date).format("DD/MM");
 
 export const getMinimalDate = (date) => moment(date).format("YYYYMMDD");

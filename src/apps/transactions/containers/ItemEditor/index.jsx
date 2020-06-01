@@ -25,6 +25,7 @@ const initInputs = {
 const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
   useEffect(() => {
     setInputs(initInputs);
+    setErrors({});
   }, [isItemEditorOpen]);
 
   const [inputs, setInputs] = useState(initInputs);
