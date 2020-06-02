@@ -4,7 +4,7 @@ import DayPicker from "react-day-picker";
 import "react-day-picker/lib/style.css";
 
 import { CalendarWrapper } from "./styles";
-import { getWeekDays, getWeekRange, getCurrentWeekDays, toStringDate } from "utils";
+import { getWeekDays, getWeekRange, getCurrentWeekDays, toMinimalDate } from "utils";
 import { setWeekDays } from "apps/transactions/actions";
 
 const Calendar = ({ setWeekDays }) => {
@@ -15,7 +15,7 @@ const Calendar = ({ setWeekDays }) => {
     const weekDays = getWeekDays(getWeekRange(date).from);
     setSelectedDays(weekDays);
     setWeekDays({
-      weekDays: weekDays.map(toStringDate),
+      weekDays: weekDays.map(toMinimalDate),
     });
   };
 

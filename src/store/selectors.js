@@ -5,14 +5,15 @@ import { toDate, isWithinWeek } from "utils";
 const getTransaction = (state) => state.transaction;
 
 export const getWeekDays = createSelector(getTransaction, (state) => ({
-  weekDays: (state.weekDays || []).map((day) => toDate(day)),
+  weekDays: state.weekDays.map(date => toDate(date, "YYYYMMDD")),
 }));
 
-export const getItemEditorOpenStatus = createSelector(
+export const getItemEditorState = createSelector(
   getTransaction,
   (state) => ({
-    isItemEditorOpen: state.isItemEditorOpen,
-  })
+    isOpening: state.itemEditor.isOpening,
+    openingDay: state.itemEditor.openingDay,
+  }),
 );
 
 export const getTransactions = createSelector(getTransaction, (state) => ({

@@ -34,12 +34,12 @@ export const isWithinWeek = (date, comparingDate) =>
 
 export const getMonthlyDate = (date) => moment(date).format("DD/MM");
 
-export const getMinimalDate = (date) => moment(date).format("YYYYMMDD");
+export const toMinimalDate = (date) => moment(date).format("YYYYMMDD");
 
 export const toStringDate = (date) => moment(date).toString();
 
 export const toDate = (date, format) => {
-  return format ? moment(new Date(), format) : new Date(date);
+  return format ? moment(date, format).toDate() : new Date(date);
 };
 
 export const getUnix = () => new Date().getTime();

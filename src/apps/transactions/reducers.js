@@ -7,11 +7,15 @@ import {
   editTransaction,
   removeTransactrion,
 } from "./actions";
-import { getCurrentWeekDays } from "utils";
+import { getCurrentWeekDays, toMinimalDate } from "utils";
 
 export const initState = {
-  weekDays: getCurrentWeekDays() || [],
-  isItemEditorOpen: false,
+  weekDays: getCurrentWeekDays().map(toMinimalDate),
+  itemEditorOpeningWithDay: null,
+  itemEditor: {
+    isOpening: false,
+    openingDay: null,
+  },
   transactions: [],
 };
 
@@ -20,8 +24,10 @@ export default createReducer(initState, {
     const { weekDays } = action.payload;
     state.weekDays = weekDays;
   },
-  [toggleItemEditor.type]: (state) => {
-    state.isItemEditorOpen = !state.isItemEditorOpen;
+  [toggleItemEditor.type]: (state, action) => {
+    const { day } = action.payload || {};
+    state.itemEditor.isOpening = !state.itemEditor.isOpening;
+    state.itemEditor.openingDay = day;
   },
   [addTransaction.type]: (state, action) => {
     state.transactions.push(action.payload);

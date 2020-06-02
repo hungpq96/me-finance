@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
 import { toggleItemEditor } from "apps/transactions/actions";
-import { getDayName, getMonthlyDate, isToday } from "utils";
+import { getDayName, getMonthlyDate, isToday, toMinimalDate } from "utils";
 import {
   Wrapper,
   ToggleButton,
@@ -26,7 +26,7 @@ const DailyRecord = ({ day, toggleItemEditor, transactions }) => {
   };
 
   const handleItemAdd = () => {
-    toggleItemEditor();
+    toggleItemEditor({ day: toMinimalDate(day) });
   };
 
   const getTitle = () => {
@@ -46,7 +46,7 @@ const DailyRecord = ({ day, toggleItemEditor, transactions }) => {
 
       <Collapsable isOpen={isOpen} keepChildrenMounted>
         {transactions.map((trans) => (
-          <Item transaction={trans} />
+          <Item key={trans.id} transaction={trans} />
         ))}
 
         <Footer>

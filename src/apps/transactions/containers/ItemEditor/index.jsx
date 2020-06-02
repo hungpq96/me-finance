@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
 import { toggleItemEditor, addTransaction } from "apps/transactions/actions";
-import { getItemEditorOpenStatus } from "store/selectors";
-import { getMinimalDate, getUnix } from "utils";
+import { getItemEditorState } from "store/selectors";
+import { getUnix } from "utils";
 import schema from "./schema";
 import {
   Wrapper,
@@ -22,11 +22,11 @@ const initInputs = {
   note: "",
 };
 
-const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
+const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction }) => {
   useEffect(() => {
     setInputs(initInputs);
     setErrors({});
-  }, [isItemEditorOpen]);
+  }, [isOpening]);
 
   const [inputs, setInputs] = useState(initInputs);
   const [errors, setErrors] = useState({});
@@ -38,7 +38,7 @@ const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
         addTransaction({
           ...inputs,
           id: getUnix(),
-          timestamp: getMinimalDate(new Date()),
+          timestamp: openingDay,
         });
         toggleItemEditor();
       })
@@ -72,7 +72,7 @@ const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
       className="bp3-dark"
       icon="add"
       title="Add Item"
-      isOpen={isItemEditorOpen}
+      isOpen={isOpening}
       onClose={handleClose}
     >
       <Content>
@@ -119,7 +119,7 @@ const ItemEditor = ({ isItemEditorOpen, toggleItemEditor, addTransaction }) => {
   );
 };
 
-export default connect(getItemEditorOpenStatus, {
+export default connect(getItemEditorState, {
   toggleItemEditor,
   addTransaction,
 })(ItemEditor);
