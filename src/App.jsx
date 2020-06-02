@@ -12,11 +12,6 @@ function App() {
     <Router>
       <Switch>
         <DefaultLayout
-          path={routes.transactions.url}
-          component={Transactions}
-        />
-
-        <DefaultLayout
           path={routes.reports.url}
           component={Reports}
         />
@@ -24,6 +19,11 @@ function App() {
         <DefaultLayout
           path={routes.credits.url}
           component={Credits}
+        />
+
+        <DefaultLayout
+          path={routes.transactions.url}
+          component={Transactions}
         />
       </Switch>
     </Router>
