@@ -17,7 +17,7 @@ const Viewer = ({ weekDays, transactions }) => {
     <ViewWrapper>
       {weekDays.map((day) => (
         <DailyRecord
-          key={day.getDay()}
+          key={day.getDate()}
           day={day}
           transactions={getTransactionByDay(day)}
         />

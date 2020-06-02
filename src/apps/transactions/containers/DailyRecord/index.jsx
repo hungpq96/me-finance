@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
@@ -15,11 +15,7 @@ import {
 import Item from "../../components/Item";
 
 const DailyRecord = ({ day, toggleItemEditor, transactions }) => {
-  useEffect(() => {
-    setOpen(isToday(day));
-  }, [day]);
-
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState(isToday(day));
 
   const handleToggle = () => {
     setOpen(!isOpen);

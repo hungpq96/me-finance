@@ -6,6 +6,13 @@ export const CalendarWrapper = styled.div`
   top: 0;
 
   .DayPicker-Day--today {
-    color: #0f9960;
+    color: black !important;
+    font-weight: 900;
+    text-decoration: underline;
+  }
+
+  .DayPicker-Day:hover {
+    color: black;
+    font-weight: bold;
   }
 `;
