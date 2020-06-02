@@ -63,6 +63,10 @@ const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction })
     });
   };
 
+  const handleKeyEnterPress = (e) => {
+    if (e.key === "Enter") handleConfirm();
+  };
+
   return (
     <Wrapper
       usePortal
@@ -79,11 +83,13 @@ const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction })
         <Input
           large
           fill
+          autoFocus
           leftIcon="shopping-cart"
           name="name"
           intent={errors.name ? Intent.DANGER : Intent.NONE}
           value={inputs.name}
           onChange={handleInputChange}
+          onKeyPress={handleKeyEnterPress}
         />
         {errors.name && <ErrorMsg>{errors.name}</ErrorMsg>}
 
@@ -95,6 +101,7 @@ const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction })
           intent={errors.price ? Intent.DANGER : Intent.NONE}
           values={inputs.price}
           onChange={handleInputChange}
+          onKeyPress={handleKeyEnterPress}
         />
         {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
 
@@ -105,6 +112,7 @@ const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction })
           name="note"
           valuse={inputs.note}
           onChange={handleInputChange}
+          onKeyPress={handleKeyEnterPress}
         />
       </Content>
 
