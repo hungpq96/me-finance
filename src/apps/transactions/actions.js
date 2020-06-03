@@ -12,4 +12,4 @@ export const setWeekDays = createAction(SET_WEEKDAYS);
 export const toggleItemEditor = createAction(TOGGLE_ITEM_EDITOR);
 export const addTransaction = createAction(ADD_TRANSACTION);
 export const editTransaction = createAction(EDIT_TRANSACTION);
-export const removeTransactrion = createAction(REMOVE_TRANSACTION);
+export const removeTransaction = createAction(REMOVE_TRANSACTION);

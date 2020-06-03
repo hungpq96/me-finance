@@ -22,7 +22,12 @@ const initInputs = {
   note: "",
 };
 
-const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction }) => {
+const ItemEditor = ({
+  isOpening,
+  openingDay,
+  toggleItemEditor,
+  addTransaction,
+}) => {
   useEffect(() => {
     setInputs(initInputs);
     setErrors({});
@@ -44,10 +49,14 @@ const ItemEditor = ({ isOpening, openingDay, toggleItemEditor, addTransaction })
       })
       .catch(({ inner }) => {
         const errors = {};
-        inner.forEach((error) => {
-          errors[error.path] = error.message;
-        });
-        setErrors(errors);
+        if (inner) {
+          inner.forEach((error) => {
+            errors[error.path] = error.message;
+          });
+          setErrors(errors);
+        } else {
+          setErrors({});
+        }
       });
   };
 

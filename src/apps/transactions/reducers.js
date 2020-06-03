@@ -5,7 +5,7 @@ import {
   toggleItemEditor,
   addTransaction,
   editTransaction,
-  removeTransactrion,
+  removeTransaction,
 } from "./actions";
 import { getCurrentWeekDays, toMinimalDate } from "utils";
 
@@ -48,11 +48,11 @@ export default createReducer(initState, {
         note || currentTransaction.note;
     }
   },
-  [removeTransactrion.type]: (state, action) => {
-    const { name, timestamp } = action.payload;
+  [removeTransaction.type]: (state, action) => {
+    const { id } = action.payload;
 
     const currentTransactionIdx = state.transactions.findIndex(
-      (trans) => trans.name === name && trans.timestamp === timestamp
+      (trans) => trans.id === id
     );
 
     if (currentTransactionIdx !== -1) {
