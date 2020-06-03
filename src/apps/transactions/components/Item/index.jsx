@@ -5,6 +5,7 @@ import { Intent } from "@blueprintjs/core";
 import { editTransaction, removeTransaction } from "apps/transactions/actions";
 import { ItemWrapper, Input, StyledButton } from "./styles";
 import ConfirmDeletePopup from "../ConfirmDeletePopup";
+import PriceInput from "../PriceInput";
 
 const Item = ({ transaction, editTransaction, removeTransaction }) => {
   const { name, price, note, id } = transaction || {};
@@ -42,8 +43,7 @@ const Item = ({ transaction, editTransaction, removeTransaction }) => {
         onChange={handleInputChange}
         onBlur={handleInputBlur}
       />
-      <Input
-        leftIcon="dollar"
+      <PriceInput
         name="price"
         value={inputs.price}
         onChange={handleInputChange}

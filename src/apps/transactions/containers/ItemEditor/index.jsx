@@ -15,6 +15,7 @@ import {
   Footer,
   ErrorMsg,
 } from "./styles";
+import PriceInput from "../../components/PriceInput";
 
 const initInputs = {
   name: "",
@@ -102,13 +103,10 @@ const ItemEditor = ({
         />
         {errors.name && <ErrorMsg>{errors.name}</ErrorMsg>}
 
-        <Input
+        <PriceInput
           large
-          fill
-          leftIcon="dollar"
           name="price"
-          intent={errors.price ? Intent.DANGER : Intent.NONE}
-          values={inputs.price}
+          value={inputs.price}
           onChange={handleInputChange}
           onKeyPress={handleKeyEnterPress}
         />
