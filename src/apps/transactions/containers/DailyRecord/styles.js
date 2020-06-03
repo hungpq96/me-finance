@@ -6,7 +6,11 @@ export const Wrapper = styled(Callout)`
   margin: 10px;
 `;
 
-export const ToggleButton = styled(Button)``;
+export const ToggleButton = styled(Button)`
+  max-width: 250px;
+  width: 35%;
+  justify-content: start;
+`;
 
 export const Collapsable = styled(Collapse)``;
 
