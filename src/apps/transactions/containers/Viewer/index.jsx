@@ -2,7 +2,7 @@ import React from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 
-import { getWeekDays, getWeeklyTransactions } from "store/selectors";
+import { getWeekDays, getTransactions } from "store/selectors";
 import { isWithinDay } from "utils";
 import DailyRecord from "../DailyRecord";
 import ItemEditor from "../ItemEditor";
@@ -28,7 +28,4 @@ const Viewer = ({ weekDays, transactions }) => {
   );
 };
 
-export default compose(
-  connect(getWeekDays),
-  connect(getWeeklyTransactions)
-)(Viewer);
+export default compose(connect(getWeekDays), connect(getTransactions))(Viewer);
