@@ -17,7 +17,7 @@ const { store, persistor } = initStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={() => <h1>loading</h1>} persistor={persistor}>
+    <PersistGate loading={null} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
