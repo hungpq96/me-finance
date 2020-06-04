@@ -33,7 +33,7 @@ export default createReducer(initState, {
     state.transactions.push(action.payload);
   },
   [editTransaction.type]: (state, action) => {
-    const { name, price, note, id } = action.payload;
+    const { name, price, category, note, id } = action.payload;
     const currentTransactionIdx = state.transactions.findIndex(
       (trans) => trans.id === id
     );
@@ -46,6 +46,8 @@ export default createReducer(initState, {
         price || currentTransaction.price;
       state.transactions[currentTransactionIdx].note =
         note || currentTransaction.note;
+      state.transactions[currentTransactionIdx].category =
+        category || currentTransaction.category;
     }
   },
   [removeTransaction.type]: (state, action) => {

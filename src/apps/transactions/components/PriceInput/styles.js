@@ -1,7 +1,10 @@
+import React from "react";
 import styled from "styled-components";
 import CurrencyInput from "react-currency-input";
 
-export const StyledInput = styled(CurrencyInput)`
+export const StyledInput = styled(({ large, ...rest }) => (
+  <CurrencyInput {...rest} />
+))`
   padding-left: ${(props) => (props.large ? "40px !important" : "auto")};
 `;
 

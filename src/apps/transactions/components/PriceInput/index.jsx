@@ -21,6 +21,7 @@ const PriceInput = ({ name, value, onChange, large, ...rest }) => {
       <StyledInput
         large={large}
         className={`bp3-input ${large ? "bp3-large" : ""}`}
+        spellCheck="false"
         precision="3"
         suffix="   VND"
         value={amount}

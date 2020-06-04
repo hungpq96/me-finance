@@ -3,13 +3,14 @@ import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
 import { editTransaction, removeTransaction } from "apps/transactions/actions";
-import { ItemWrapper, Input, StyledButton } from "./styles";
+import { ItemWrapper, Input, StyledButton, SelectWrapper } from "./styles";
 import ConfirmDeletePopup from "../ConfirmDeletePopup";
 import PriceInput from "../PriceInput";
+import CategorySelect from "../CategorySelect";
 
 const Item = ({ transaction, editTransaction, removeTransaction }) => {
-  const { name, price, note, id } = transaction || {};
-  const [inputs, setInputs] = useState({ name, price, note });
+  const { name, price, category, note, id } = transaction || {};
+  const [inputs, setInputs] = useState({ name, price, category, note });
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   const togglePopup = () => setPopupOpen(!isPopupOpen);
@@ -49,6 +50,13 @@ const Item = ({ transaction, editTransaction, removeTransaction }) => {
         onChange={handleInputChange}
         onBlur={handleInputBlur}
       />
+      <SelectWrapper>
+        <CategorySelect
+          name="category"
+          value={inputs.category}
+          onChange={handleInputChange}
+        />
+      </SelectWrapper>
       <Input
         leftIcon="annotation"
         name="note"

@@ -29,3 +29,7 @@ export const Footer = styled.div`
 export const ErrorMsg = styled(Text)`
   color: red;
 `;
+
+export const SelectWrapper = styled.div`
+  margin-top: 10px;
+`;

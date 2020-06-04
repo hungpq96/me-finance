@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Intent } from "@blueprintjs/core";
 
 import { toggleItemEditor, addTransaction } from "apps/transactions/actions";
+import { CATEGORIES } from "apps/transactions/constants";
 import { getItemEditorState } from "store/selectors";
 import { getUnix } from "utils";
 import schema from "./schema";
@@ -14,12 +15,15 @@ import {
   CancelButton,
   Footer,
   ErrorMsg,
+  SelectWrapper,
 } from "./styles";
 import PriceInput from "../../components/PriceInput";
+import CategorySelect from "../../components/CategorySelect";
 
 const initInputs = {
   name: "",
   price: "0",
+  category: CATEGORIES[0],
   note: "",
 };
 
@@ -110,7 +114,15 @@ const ItemEditor = ({
           onChange={handleInputChange}
           onKeyPress={handleKeyEnterPress}
         />
-        {errors.price && <ErrorMsg>{errors.price}</ErrorMsg>}
+
+        <SelectWrapper>
+          <CategorySelect
+            large
+            name="category"
+            value={inputs.category}
+            onChange={handleInputChange}
+          />
+        </SelectWrapper>
 
         <Input
           large

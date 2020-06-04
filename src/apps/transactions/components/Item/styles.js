@@ -23,5 +23,9 @@ export const Input = styled(InputGroup)`
   }
 `;
 
-export const StyledButton = styled(Button)`
+export const StyledButton = styled(Button)``;
+
+export const SelectWrapper = styled.div`
+  flex-grow: 2;
+  margin-left: 10px;
 `;
