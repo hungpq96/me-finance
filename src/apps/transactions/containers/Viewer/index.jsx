@@ -10,6 +10,7 @@ import Calendar from "../../components/Calendar";
 import { ViewWrapper } from "./styles";
 
 const Viewer = ({ weekDays, transactions }) => {
+  // reset weekDays on init loading
   const getTransactionByDay = (day) =>
     transactions.filter((trans) => isWithinDay(trans.timestamp, day));
 
